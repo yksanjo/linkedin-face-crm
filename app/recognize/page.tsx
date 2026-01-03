@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
 import { getAllContacts, updateContact } from '@/lib/storage';
 import { Contact } from '@/types';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
