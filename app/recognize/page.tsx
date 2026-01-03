@@ -105,7 +105,7 @@ export default function RecognizePage() {
             ])
         );
 
-        resizedDetections.forEach((detection) => {
+        resizedDetections.forEach((detection: any) => {
           const match = findBestMatch(detection.descriptor, labeledDescriptors);
 
           if (match.label !== 'unknown') {
