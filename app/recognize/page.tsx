@@ -1,14 +1,18 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import * as faceapi from '@vladmandic/face-api';
-import { loadModels, detectAllFaces, findBestMatch } from '@/lib/faceapi';
+import dynamic from 'next/dynamic';
 import { getAllContacts, updateContact } from '@/lib/storage';
 import { Contact } from '@/types';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
+// Prevent SSR for this page
+export const dynamic = 'force-dynamic';
+
 export default function RecognizePage() {
+  const [faceapi, setFaceapi] = useState<any>(null);
+  const [faceApiLoaded, setFaceApiLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [modelsReady, setModelsReady] = useState(false);
@@ -19,13 +23,25 @@ export default function RecognizePage() {
   const [contacts, setContacts] = useState<Contact[]>([]);
 
   useEffect(() => {
+    const loadFaceApi = async () => {
+      const faceApiModule = await import('@vladmandic/face-api');
+      setFaceapi(faceApiModule);
+      setFaceApiLoaded(true);
+    };
+    loadFaceApi();
+  }, []);
+
+  useEffect(() => {
+    if (!faceApiLoaded) return;
+
     const initializeAsync = async () => {
+      const { loadModels } = await import('@/lib/faceapi');
       await loadModels();
       setModelsReady(true);
       setContacts(getAllContacts());
     };
     initializeAsync();
-  }, []);
+  }, [faceApiLoaded]);
 
   useEffect(() => {
     if (modelsReady && isScanning) {
@@ -60,7 +76,7 @@ export default function RecognizePage() {
   };
 
   const detectFaces = async () => {
-    if (!videoRef.current || !canvasRef.current || !isScanning) return;
+    if (!videoRef.current || !canvasRef.current || !isScanning || !faceapi) return;
 
     const video = videoRef.current;
     const canvas = canvasRef.current;
@@ -70,6 +86,7 @@ export default function RecognizePage() {
       return;
     }
 
+    const { detectAllFaces, findBestMatch } = await import('@/lib/faceapi');
     const detections = await detectAllFaces(video);
 
     const displaySize = { width: video.videoWidth, height: video.videoHeight };

@@ -3,11 +3,13 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Webcam from '@/components/Webcam';
-import { loadModels, detectFaceAndGetDescriptor } from '@/lib/faceapi';
 import { saveContact } from '@/lib/storage';
 import { Contact } from '@/types';
 import { ArrowLeft, Check } from 'lucide-react';
 import Link from 'next/link';
+
+// Prevent SSR for this page
+export const dynamic = 'force-dynamic';
 
 export default function EnrollPage() {
   const router = useRouter();
@@ -28,7 +30,12 @@ export default function EnrollPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    loadModels().then(() => setModelsReady(true));
+    const initModels = async () => {
+      const { loadModels } = await import('@/lib/faceapi');
+      await loadModels();
+      setModelsReady(true);
+    };
+    initModels();
   }, []);
 
   const handleCapture = async (canvas: HTMLCanvasElement) => {
@@ -36,6 +43,7 @@ export default function EnrollPage() {
     setError('');
 
     try {
+      const { detectFaceAndGetDescriptor } = await import('@/lib/faceapi');
       const descriptor = await detectFaceAndGetDescriptor(canvas);
 
       if (!descriptor) {
