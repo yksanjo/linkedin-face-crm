@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Webcam from '@/components/Webcam';
-import { saveContact } from '@/lib/storage';
+import { saveContact } from '@/lib/supabase';
 import { Contact } from '@/types';
 import { ArrowLeft, Check } from 'lucide-react';
 import Link from 'next/link';
@@ -75,8 +75,9 @@ export default function EnrollPage() {
       return;
     }
 
-    const contact: Contact = {
-      id: Date.now().toString(),
+    setIsProcessing(true);
+
+    const contact = {
       name: formData.name,
       company: formData.company,
       title: formData.title,
@@ -87,10 +88,16 @@ export default function EnrollPage() {
       tags: formData.tags ? formData.tags.split(',').map((t) => t.trim()) : [],
       faceDescriptor,
       imageUrl: capturedImage,
-      createdAt: new Date().toISOString(),
     };
 
-    saveContact(contact);
+    const contactId = await saveContact(contact);
+
+    if (!contactId) {
+      setError('Failed to save contact. Please try again.');
+      setIsProcessing(false);
+      return;
+    }
+
     router.push('/contacts');
   };
 

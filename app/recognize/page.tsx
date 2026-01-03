@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { getAllContacts, updateContact } from '@/lib/storage';
+import { getAllContacts, updateContact } from '@/lib/supabase';
 import { Contact } from '@/types';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
@@ -37,7 +37,8 @@ export default function RecognizePage() {
       const { loadModels } = await import('@/lib/faceapi');
       await loadModels();
       setModelsReady(true);
-      setContacts(getAllContacts());
+      const contactsData = await getAllContacts();
+      setContacts(contactsData);
     };
     initializeAsync();
   }, [faceApiLoaded]);

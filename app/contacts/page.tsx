@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getAllContacts, deleteContact } from '@/lib/storage';
+import { getAllContacts, deleteContact } from '@/lib/supabase';
 import { Contact } from '@/types';
 import { ArrowLeft, ExternalLink, Search, Trash2, Calendar } from 'lucide-react';
 import Link from 'next/link';
@@ -15,14 +15,15 @@ export default function ContactsPage() {
     loadContacts();
   }, []);
 
-  const loadContacts = () => {
-    setContacts(getAllContacts());
+  const loadContacts = async () => {
+    const contactsData = await getAllContacts();
+    setContacts(contactsData);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this contact?')) {
-      deleteContact(id);
-      loadContacts();
+      await deleteContact(id);
+      await loadContacts();
       if (selectedContact?.id === id) {
         setSelectedContact(null);
       }
