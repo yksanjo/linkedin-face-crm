@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Webcam from '@/components/Webcam';
 import { saveContact } from '@/lib/supabase';
@@ -28,6 +28,7 @@ export default function EnrollPage() {
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const initModels = async () => {
@@ -57,6 +58,70 @@ export default function EnrollPage() {
       setIsProcessing(false);
     } catch (err) {
       setError('Error detecting face. Please try again.');
+      setIsProcessing(false);
+      console.error(err);
+    }
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setError('Please select a valid image file.');
+      return;
+    }
+
+    setIsProcessing(true);
+    setError('');
+
+    try {
+      // Load the image
+      const img = new Image();
+      const imageUrl = URL.createObjectURL(file);
+
+      img.onload = async () => {
+        // Create a canvas and draw the image
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+
+        if (!ctx) {
+          setError('Failed to process image.');
+          setIsProcessing(false);
+          return;
+        }
+
+        ctx.drawImage(img, 0, 0);
+
+        // Detect face in the uploaded image
+        const { detectFaceAndGetDescriptor } = await import('@/lib/faceapi');
+        const descriptor = await detectFaceAndGetDescriptor(canvas);
+
+        if (!descriptor) {
+          setError('No face detected in the uploaded image. Please choose a clearer photo.');
+          setIsProcessing(false);
+          URL.revokeObjectURL(imageUrl);
+          return;
+        }
+
+        setFaceDescriptor(Array.from(descriptor));
+        setCapturedImage(canvas.toDataURL('image/jpeg', 0.8));
+        setIsProcessing(false);
+        URL.revokeObjectURL(imageUrl);
+      };
+
+      img.onerror = () => {
+        setError('Failed to load image. Please try another file.');
+        setIsProcessing(false);
+        URL.revokeObjectURL(imageUrl);
+      };
+
+      img.src = imageUrl;
+    } catch (err) {
+      setError('Error processing uploaded image. Please try again.');
       setIsProcessing(false);
       console.error(err);
     }
@@ -136,20 +201,45 @@ export default function EnrollPage() {
                 />
                 <div className="flex items-center gap-2 text-green-600 bg-green-50 p-3 rounded-lg">
                   <Check className="w-5 h-5" />
-                  <span className="font-semibold">Face captured successfully!</span>
+                  <span className="font-semibold">Face detected successfully!</span>
                 </div>
                 <button
                   onClick={() => {
                     setFaceDescriptor(null);
                     setCapturedImage('');
+                    if (fileInputRef.current) {
+                      fileInputRef.current.value = '';
+                    }
                   }}
                   className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
                 >
-                  Retake Photo
+                  Use Different Photo
                 </button>
               </div>
             ) : (
-              <Webcam onCapture={handleCapture} />
+              <div className="space-y-4">
+                <Webcam onCapture={handleCapture} />
+
+                {/* Hidden file input */}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                />
+
+                {/* Upload button */}
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Upload Picture
+                </button>
+              </div>
             )}
 
             {isProcessing && (
