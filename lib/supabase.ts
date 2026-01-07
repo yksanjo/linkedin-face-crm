@@ -6,11 +6,29 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Auth
+export async function getCurrentUser() {
+  const { data: { user } } = await supabase.auth.getUser();
+  return user;
+}
+
+export async function signOut() {
+  await supabase.auth.signOut();
+}
+
 // Contacts
 export async function getAllContacts(): Promise<Contact[]> {
+  // Get current user
+  const user = await getCurrentUser();
+  if (!user) {
+    console.error('No authenticated user');
+    return [];
+  }
+
   const { data, error } = await supabase
     .from('contacts')
     .select('*')
+    .eq('user_id', user.id)
     .order('created_at', { ascending: false });
 
   if (error) {
@@ -36,6 +54,13 @@ export async function getAllContacts(): Promise<Contact[]> {
 }
 
 export async function saveContact(contact: Omit<Contact, 'id' | 'createdAt'>): Promise<string | null> {
+  // Get current user
+  const user = await getCurrentUser();
+  if (!user) {
+    console.error('No authenticated user');
+    return null;
+  }
+
   // Upload image to Supabase Storage
   const imageFile = dataURLtoFile(contact.imageUrl, `${Date.now()}.jpg`);
   const imagePath = `contacts/${Date.now()}_${Math.random().toString(36).substring(7)}.jpg`;
@@ -58,6 +83,7 @@ export async function saveContact(contact: Omit<Contact, 'id' | 'createdAt'>): P
   const { data, error } = await supabase
     .from('contacts')
     .insert({
+      user_id: user.id,
       name: contact.name,
       company: contact.company,
       title: contact.title,
