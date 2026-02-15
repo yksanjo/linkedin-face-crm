@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Camera, Users, UserPlus, LogOut, LogIn } from "lucide-react";
+import { Camera, Users, UserPlus, LogOut, LogIn, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getCurrentUser, signOut } from "@/lib/supabase";
 
@@ -75,7 +75,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {/* Enroll Contact */}
           <Link href="/enroll">
             <div className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow cursor-pointer">
@@ -104,6 +104,22 @@ export default function Home() {
               <p className="text-gray-600">
                 Use your camera to recognize contacts in real-time at networking
                 events.
+              </p>
+            </div>
+          </Link>
+
+          {/* Instant Search */}
+          <Link href="/search">
+            <div className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow cursor-pointer">
+              <div className="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+                <Search className="w-8 h-8 text-orange-600" />
+              </div>
+              <h2 className="text-2xl font-semibold mb-2 text-gray-900">
+                Instant Search
+              </h2>
+              <p className="text-gray-600">
+                Upload or take a photo to instantly identify someone from your
+                database.
               </p>
             </div>
           </Link>
