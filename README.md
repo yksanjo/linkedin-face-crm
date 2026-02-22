@@ -1,81 +1,84 @@
-# LinkedIn Face Recognition CRM
+# linkedin-face-crm
 
-A modern web-based facial recognition CRM system that helps you remember professional contacts at networking events. Built with Next.js, TypeScript, and face-api.js.
+## Detailed Description
 
-## Features
+linkedin-face-crm is maintained as an industry-grade software project with production-ready engineering practices.  
+This repository includes documented setup, quality gates, operational guidance, and governance standards so contributors can safely build, test, and ship changes with confidence.
 
-- **Real-time Face Recognition**: Instantly recognize contacts using your webcam
-- **Contact Enrollment**: Capture faces with LinkedIn profile details
-- **Contact Management**: Browse, search, and manage your professional network
-- **Cross-Platform**: Works on Mac, Windows, mobile - any device with a browser
-- **Privacy-First**: All data stored locally in your browser (LocalStorage)
-- **Modern ML**: Uses TensorFlow.js-powered face recognition models
+## Problem Statement
 
-## Tech Stack
+Describe the user or business problem this project solves, the target users, and expected outcomes.
 
-- **Framework**: Next.js 16 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Face Recognition**: @vladmandic/face-api (TensorFlow.js)
-- **Storage**: LocalStorage (upgradeable to Supabase)
-- **Icons**: Lucide React
+## Solution Overview
+
+Summarize the architecture, core modules, and runtime behavior at a high level.
+
+## Key Features
+
+- Clear project scope and intended use.
+- Reproducible local development workflow.
+- Test coverage and CI quality gates.
+- Security and contribution policies.
+- Deployment-ready repository structure.
+
+## Repository Structure
+
+```text
+.
+|-- src/                  # Core implementation
+|-- tests/                # Automated test suites
+|-- docs/                 # Design notes and operational docs
+|-- .github/workflows/    # CI pipelines
+|-- README.md
+|-- LICENSE
+|-- CONTRIBUTING.md
+|-- SECURITY.md
+|-- CODE_OF_CONDUCT.md
+```
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ installed
-- Webcam access
-- Modern browser (Chrome, Firefox, Safari)
+- Git
+- Project runtime/toolchain for this repo
 
-### Installation
+### Local Setup
 
-1. Clone the repository
-2. Install dependencies:
 ```bash
-npm install
+npm ci
+npm run lint
+npm test
+npm run build
 ```
-
-3. Download face-api models (if not already present):
-```bash
-node scripts/download-models.js
-```
-
-4. Run the development server:
-```bash
-npm run dev
-```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## Usage
 
-### 1. Enroll Contacts
+Document primary commands, API routes, CLI examples, or UI workflows here.
 
-1. Click "Enroll Contact" on the homepage
-2. Allow camera access
-3. Capture photo and fill in LinkedIn profile details
-4. Click "Save Contact"
+## Quality Standards
 
-### 2. Recognize Faces
+- CI must pass before merge.
+- Changes require tests for critical behavior.
+- Security-sensitive changes should include risk notes.
+- Keep pull requests focused and reviewable.
 
-1. Click "Recognize Faces" on the homepage
-2. Start recognition and point camera at enrolled contacts
-3. View their information in real-time!
+## Security
 
-### 3. Manage Contacts
+See `SECURITY.md` for responsible disclosure and handling guidelines.
 
-1. Click "Manage Contacts" to browse and search your database
-2. Click on any contact to view full details
+## Contributing
 
-## Deployment
+See `CONTRIBUTING.md` for branching, commit, and pull request expectations.
 
-Deploy to Vercel with one click or push to GitHub and import in Vercel:
+## Roadmap
 
-```bash
-vercel --prod
-```
+Track upcoming milestones, technical debt, and planned feature work.
+
+## Support
+
+Open a GitHub issue for bugs, feature requests, or documentation gaps.
 
 ## License
 
-MIT License
+This project is released under the MIT License.
