@@ -21,27 +21,29 @@ You should see: "Success. No rows returned"
 4. **Make it PUBLIC** ✓
 5. Click **Create bucket**
 
-### Configure Bucket Policies:
+### Configure Bucket Policies
 
-6. Click on the `contact-faces` bucket
-7. Go to **Policies** tab
-8. Click **New Policy**
-9. Select **Full customization**
-10. Policy name: `Public Access`
-11. Policy definition:
+1. Click on the `contact-faces` bucket
+2. Go to **Policies** tab
+3. Click **New Policy**
+4. Select **Full customization**
+5. Policy name: `Public Access`
+6. Policy definition:
+
 ```sql
 CREATE POLICY "Public Access"
 ON storage.objects FOR ALL
 USING (bucket_id = 'contact-faces');
 ```
-12. Click **Review** then **Save policy**
 
-### Set File Restrictions:
+1. Click **Review** then **Save policy**
 
-13. Go to **Configuration** tab of the bucket
-14. Set **Max file size**: 5 MB
-15. Allowed MIME types: `image/jpeg, image/png`
-16. Click **Save**
+### Set File Restrictions
+
+1. Go to **Configuration** tab of the bucket
+2. Set **Max file size**: 5 MB
+3. Allowed MIME types: `image/jpeg, image/png`
+4. Click **Save**
 
 ## ✅ Step 3: Test Locally
 
@@ -49,21 +51,22 @@ USING (bucket_id = 'contact-faces');
 npm run dev
 ```
 
-Open http://localhost:3000 and try:
+Open <http://localhost:3000> and try:
+
 1. Enrolling a new contact
 2. Viewing contacts
 3. Recognizing faces
 
 ## ✅ Step 4: Deploy to Vercel
 
-### Add Environment Variables to Vercel:
+### Add Environment Variables to Vercel
 
 1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
 2. Select your `linkedin-face-crm` project
 3. Go to **Settings** → **Environment Variables**
 4. Add these two variables:
 
-```
+```text
 Name: NEXT_PUBLIC_SUPABASE_URL
 Value: https://jyixgalqejdandnrmnqe.supabase.co
 
@@ -71,9 +74,9 @@ Name: NEXT_PUBLIC_SUPABASE_ANON_KEY
 Value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5aXhnYWxxZWpkYW5kbnJtbnFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc0MTE4OTIsImV4cCI6MjA4Mjk4Nzg5Mn0.utdsBX6V5et1O0dHwfUrV4WTfUC2pY4lxw3tjqqRDE8
 ```
 
-5. Click **Save** for each
+1. Click **Save** for each
 
-### Deploy:
+### Deploy
 
 ```bash
 git push
@@ -81,9 +84,10 @@ git push
 
 Vercel will automatically deploy with the new environment variables!
 
-## 🎉 Done!
+## 🎉 Done
 
 Your app now has:
+
 - ✅ Cloud database (PostgreSQL)
 - ✅ Image storage (Supabase Storage)
 - ✅ Unlimited contacts (up to 500MB)
@@ -94,21 +98,25 @@ Your app now has:
 ## Troubleshooting
 
 ### "Failed to save contact"
+
 - Check that storage bucket `contact-faces` is created and PUBLIC
 - Verify bucket policies allow uploads
 - Check browser console for errors
 
 ### "No contacts showing"
+
 - Verify SQL schema ran successfully
 - Check browser console for errors
 - Try refreshing the page
 
 ### Images not loading
+
 - Ensure bucket is PUBLIC
 - Check that images were uploaded to Storage
 - Verify image URLs in database
 
 ### Database connection errors
+
 - Verify environment variables in Vercel
 - Check that `.env.local` has correct values
 - Restart dev server after env changes
@@ -116,6 +124,7 @@ Your app now has:
 ## Need Help?
 
 Check your Supabase logs:
+
 1. Go to Supabase Dashboard
 2. Click **Logs** → **Database** or **Storage**
 3. Look for error messages

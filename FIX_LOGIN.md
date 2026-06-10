@@ -8,10 +8,11 @@ Your login isn't working because **2 things need to be fixed**. Follow these ste
 
 This adds the `user_id` column so each user has their own data.
 
-### What to do:
+### What to do
 
 1. **Open this file in your project:**
-   ```
+
+   ```text
    supabase-auth-migration.sql
    ```
 
@@ -20,7 +21,7 @@ This adds the `user_id` column so each user has their own data.
 3. **Copy it** (Cmd+C or Ctrl+C)
 
 4. **Open Supabase SQL Editor:**
-   - Click this link: https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/sql/new
+   - Click this link: <https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/sql/new>
    - Or go to: Supabase Dashboard → SQL Editor → "New query"
 
 5. **Paste the SQL** (Cmd+V or Ctrl+V)
@@ -37,10 +38,10 @@ This adds the `user_id` column so each user has their own data.
 
 This lets you login immediately without checking email.
 
-### What to do:
+### What to do
 
 1. **Open Supabase Auth Settings:**
-   - Click this link: https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/auth/providers
+   - Click this link: <https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/auth/providers>
    - Or go to: Supabase Dashboard → Authentication → Providers
 
 2. **Find "Email" section**
@@ -60,10 +61,11 @@ This lets you login immediately without checking email.
 
 ## ✅ STEP 3: Test Login (2 minutes)
 
-### What to do:
+### What to do
 
 1. **Go to your app:**
-   ```
+
+   ```text
    http://localhost:3001/signup
    ```
 
@@ -84,7 +86,7 @@ This lets you login immediately without checking email.
    - You should be redirected to login page
 
 6. **Test login:**
-   - Go to: http://localhost:3001/login
+   - Go to: <http://localhost:3001/login>
    - Enter: `test@gmail.com` / `password123`
    - Click "Sign In"
    - ✅ Should login successfully!
@@ -108,22 +110,27 @@ After completing all steps, you should be able to:
 ## ❌ Troubleshooting
 
 ### "Invalid email address" error
+
 - ✅ Use a real email domain: `test@gmail.com`, `user@yahoo.com`
 - ❌ Don't use: `test@test.com`, `test@example.com`
 
 ### "Email not confirmed" error
+
 - You forgot Step 2 - disable email confirmation
 - Go back and toggle it OFF
 
 ### "No rows returned" after SQL
+
 - ✅ This is GOOD! It means the migration worked
 - The SQL doesn't return data, it just updates the database
 
 ### Can't see "user_id" column
+
 - The column is there, you just can't see it in the table editor
 - It's used automatically by the code
 
 ### Still can't login
+
 - Make sure you completed BOTH Step 1 AND Step 2
 - Try with a fresh email address
 - Check browser console (F12) for errors
@@ -133,12 +140,12 @@ After completing all steps, you should be able to:
 ## 🚀 Quick Links
 
 | Task | Link |
-|------|------|
-| SQL Editor | https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/sql/new |
-| Auth Settings | https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/auth/providers |
-| Your App (Signup) | http://localhost:3001/signup |
-| Your App (Login) | http://localhost:3001/login |
-| View Users | https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/auth/users |
+| ---- | ---- |
+| SQL Editor | <https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/sql/new> |
+| Auth Settings | <https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/auth/providers> |
+| Your App (Signup) | <http://localhost:3001/signup> |
+| Your App (Login) | <http://localhost:3001/login> |
+| View Users | <https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/auth/users> |
 
 ---
 
