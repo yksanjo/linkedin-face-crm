@@ -1,6 +1,7 @@
 # 🔧 FIX LOGIN - Step by Step Guide
 
-Your login isn't working because **2 things need to be fixed**. Follow these steps **in order**:
+Your login isn't working because **2 things need to be fixed**. Follow these
+steps **in order**:
 
 ---
 
@@ -38,7 +39,7 @@ This adds the `user_id` column so each user has their own data.
 
 This lets you login immediately without checking email.
 
-### What to do
+### What to do (Step 2)
 
 1. **Open Supabase Auth Settings:**
    - Click this link: <https://supabase.com/dashboard/project/jyixgalqejdandnrmnqe/auth/providers>
@@ -61,7 +62,7 @@ This lets you login immediately without checking email.
 
 ## ✅ STEP 3: Test Login (2 minutes)
 
-### What to do
+### What to do (Step 3)
 
 1. **Go to your app:**
 

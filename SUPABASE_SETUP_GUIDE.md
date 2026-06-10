@@ -30,13 +30,13 @@ You should see: "Success. No rows returned"
 5. Policy name: `Public Access`
 6. Policy definition:
 
-```sql
-CREATE POLICY "Public Access"
-ON storage.objects FOR ALL
-USING (bucket_id = 'contact-faces');
-```
+   ```sql
+   CREATE POLICY "Public Access"
+   ON storage.objects FOR ALL
+   USING (bucket_id = 'contact-faces');
+   ```
 
-1. Click **Review** then **Save policy**
+7. Click **Review** then **Save policy**
 
 ### Set File Restrictions
 
@@ -66,15 +66,15 @@ Open <http://localhost:3000> and try:
 3. Go to **Settings** → **Environment Variables**
 4. Add these two variables:
 
-```text
-Name: NEXT_PUBLIC_SUPABASE_URL
-Value: https://jyixgalqejdandnrmnqe.supabase.co
+   ```text
+   Name: NEXT_PUBLIC_SUPABASE_URL
+   Value: <your Supabase project URL>
 
-Name: NEXT_PUBLIC_SUPABASE_ANON_KEY
-Value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5aXhnYWxxZWpkYW5kbnJtbnFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc0MTE4OTIsImV4cCI6MjA4Mjk4Nzg5Mn0.utdsBX6V5et1O0dHwfUrV4WTfUC2pY4lxw3tjqqRDE8
-```
+   Name: NEXT_PUBLIC_SUPABASE_ANON_KEY
+   Value: <your Supabase anon key, from Settings → API>
+   ```
 
-1. Click **Save** for each
+5. Click **Save** for each
 
 ### Deploy
 

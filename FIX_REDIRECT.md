@@ -130,16 +130,16 @@ Also add your production URL to Redirect URLs:
 
 2. Add these to Redirect URLs:
 
-```text
-https://linkedin-face-nv8hgmxqr-yoshi-kondos-projects.vercel.app/**
-https://*.vercel.app/**
-```
+   ```text
+   https://linkedin-face-nv8hgmxqr-yoshi-kondos-projects.vercel.app/**
+   https://*.vercel.app/**
+   ```
 
-1. Update Site URL to your production URL:
+3. Update Site URL to your production URL:
 
-```text
-https://linkedin-face-nv8hgmxqr-yoshi-kondos-projects.vercel.app
-```
+   ```text
+   https://linkedin-face-nv8hgmxqr-yoshi-kondos-projects.vercel.app
+   ```
 
 ---
 

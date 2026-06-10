@@ -2,7 +2,8 @@
 
 ## Step 1: Run Database Migration (Required - 2 minutes)
 
-To enable authentication and user-specific data isolation, you need to run a SQL migration in Supabase.
+To enable authentication and user-specific data isolation, you need to run
+a SQL migration in Supabase.
 
 ### Instructions
 
@@ -94,19 +95,19 @@ To verify users can't see each other's data:
 
 ### Migration Fails
 
-#### Error "column 'user_id' already exists"
+#### Error: "column 'user_id' already exists"
 
 - ✅ This is fine! It means the migration already ran
 - Proceed to Step 2
 
-#### Error "permission denied"
+#### Error: "permission denied"
 
 - Make sure you're the project owner
 - Use the service role key if needed
 
 ### Can't Save Contacts
 
-#### Error "new row violates row-level security policy"
+#### Error: "new row violates row-level security policy"
 
 - Make sure you ran the migration
 - Make sure you're logged in

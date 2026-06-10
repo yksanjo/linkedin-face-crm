@@ -1,18 +1,6 @@
 {
   // Lint config for markdownlint-cli2 (used by CI and locally).
-  "config": {
-    // Line length: docs include long URLs, tables, and command lines.
-    "MD013": false,
-    // Allow common inline HTML used in docs.
-    "MD033": {
-      "allowed_elements": ["br", "img", "kbd", "sub", "sup", "details", "summary"]
-    },
-    // Duplicate headings are fine when they are not siblings (e.g. repeated
-    // "What to do:" style sections under different parents).
-    "MD024": {
-      "siblings_only": true
-    }
-  },
+  // Default rules apply in full; this file only scopes which paths are linted.
   "ignores": [
     "node_modules/**",
     ".next/**"

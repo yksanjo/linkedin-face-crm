@@ -2,7 +2,8 @@
 
 ## Create the Storage Bucket (2 minutes)
 
-Your app needs a storage bucket called `contact-faces` to save photos. Follow these steps:
+Your app needs a storage bucket called `contact-faces` to save photos.
+Follow these steps:
 
 ### Step 1: Go to Supabase Dashboard
 
@@ -37,7 +38,8 @@ That's it! The bucket is now ready.
 ## What This Does
 
 - **Stores contact photos** - When you upload or capture a photo, it's saved here
-- **Makes photos accessible** - Public bucket means photos can be viewed in your app
+- **Makes photos accessible** - Public bucket means photos can be viewed
+  in your app
 - **Limits file size** - Prevents users from uploading huge files
 - **Allows only images** - Only image files (jpg, png, webp) can be uploaded
 
@@ -55,7 +57,8 @@ That's it! The bucket is now ready.
 
 ### Still having issues?
 
-The bucket might already exist! Check if you see `contact-faces` in your bucket list.
+The bucket might already exist! Check if you see `contact-faces` in your
+bucket list.
 
 ---
 
